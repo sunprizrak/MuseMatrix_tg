@@ -15,7 +15,10 @@ RUN apk update && apk add gcc python3-dev musl-dev linux-headers
 
 # lint
 RUN pip install --upgrade pip
+RUN echo "Текущая директория: ${PWD}"
 COPY . .
+
+
 
 # install dependencies
 COPY ./requirements.txt .
