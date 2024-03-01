@@ -1,10 +1,12 @@
 import json
+
+from config_reader import config
 from database import db_update
 import aiohttp
 
-path_registrate = 'https://127.0.0.1:8000/' + 'auth/users/'
-path_authentication = 'http://127.0.0.1:8000/' + 'auth/token/login/'
-path_authorization = 'http://127.0.0.1:8000/' + 'auth/users/me/'
+path_registrate = config.host_name + 'auth/users/'
+path_authentication = config.host_name + 'auth/token/login/'
+path_authorization = config.host_name + 'auth/users/me/'
 
 
 async def registrate(*args, **kwargs):

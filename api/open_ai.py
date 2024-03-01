@@ -1,8 +1,8 @@
 import json
 import aiohttp
+from config_reader import config
 
-
-path_chat_completion = 'http://127.0.0.1:8000/' + 'openai/chat_completion/'
+path_chat_completion = config.host_name + 'openai/chat_completion/'
 
 
 async def chat_completion(*args, **kwargs):

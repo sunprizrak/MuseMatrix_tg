@@ -8,6 +8,7 @@ from states import LoginForm, RegistrateForm
 
 auth_router = Router()
 
+
 @auth_router.message(F.text == 'REGISTRATE')
 async def open_registration_form(message: types.Message, state: FSMContext) -> None:
     await state.set_state(RegistrateForm.email)
