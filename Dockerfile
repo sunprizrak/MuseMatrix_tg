@@ -5,7 +5,7 @@
 FROM python:3.12.2-alpine3.18 as builder
 
 # set work directory
-WORKDIR /musematrix_tg
+WORKDIR /usr/src/musematrix_tg
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,7 +19,7 @@ COPY . .
 
 # install dependencies
 COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /musematrix_tg/wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/musematrix_tg/wheels -r requirements.txt
 
 #########
 # FINAL #
@@ -39,8 +39,8 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apk update && apk add libpq
-COPY --from=builder /musematrix_tg/wheels /wheels
-COPY --from=builder /musematrix_tg/requirements.txt .
+COPY --from=builder /usr/src/musematrix_tg/wheels /wheels
+COPY --from=builder /usr/src/musematrix_tg/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 # copy project
