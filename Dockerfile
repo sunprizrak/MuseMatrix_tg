@@ -2,7 +2,7 @@
 # BUILDER #
 ###########
 
-FROM python:3.12.2-alpine3.18 as builder
+FROM python:3.11.6-alpine3.18 as builder
 
 # set work directory
 WORKDIR /usr/src/musematrix_tg
@@ -29,7 +29,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/musematrix_tg/wheels
 #########
 
 # pull official base image
-FROM python:3.12.2-alpine3.18
+FROM python:3.11.6-alpine3.18
 
 # create directory for the app
 RUN mkdir -p /home
