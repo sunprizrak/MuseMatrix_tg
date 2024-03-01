@@ -1,7 +1,7 @@
 import sqlite3
 
 
-db = sqlite3.connect('./data/MuseMatrix_tg.db')
+db = sqlite3.connect('data/MuseMatrix_tg.db')
 cur = db.cursor()
 
 

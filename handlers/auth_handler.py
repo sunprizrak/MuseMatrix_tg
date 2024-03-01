@@ -1,13 +1,12 @@
 from aiogram import Router, types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
-
-from controller.user_controller import UserController
+from api.auth import registrate, authentication
 from keyboards import auth_kb
 from states import LoginForm, RegistrateForm
 
-auth_router = Router()
 
+auth_router = Router()
 
 @auth_router.message(F.text == 'REGISTRATE')
 async def open_registration_form(message: types.Message, state: FSMContext) -> None:
@@ -43,9 +42,9 @@ async def process_password(message: types.Message, state: FSMContext) -> None:
     data = await state.get_data()
 
     tg_id = message.from_user.id
-    user_controller = UserController(tg_id=tg_id)
 
-    response = await user_controller.registrate(
+    response = await registrate(
+        tg_id=tg_id,
         email=data.get('email'),
         password=data.get('password'),
         re_password=data.get('re_password'),
@@ -115,9 +114,8 @@ async def process_password(message: types.Message, state: FSMContext) -> None:
     data = await state.get_data()
 
     tg_id = message.from_user.id
-    user_controller = UserController(tg_id=tg_id)
-
-    response = await user_controller.authentication(
+    response = await authentication(
+        tg_id=tg_id,
         email=data.get('email'),
         password=data.get('password'),
     )

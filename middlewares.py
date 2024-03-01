@@ -1,9 +1,7 @@
 from typing import Dict, Any, Awaitable, Callable
-from controller.user_controller import UserController
-
-
 from aiogram import BaseMiddleware
 from aiogram.types import Message
+from database import db_read
 
 
 class CheckAuthMiddleware(BaseMiddleware):
@@ -14,8 +12,7 @@ class CheckAuthMiddleware(BaseMiddleware):
         data: Dict[str, Any]
     ) -> Any:
         user_id = event.from_user.id
-        user_controller = UserController(tg_id=user_id)
-        auth_token = await user_controller.get_auth_token()
+        auth_token = await db_read(tg_id=user_id)
         data['auth_token'] = auth_token
         if auth_token is None:
             await event.reply(
