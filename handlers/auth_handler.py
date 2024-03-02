@@ -4,8 +4,9 @@ from aiogram.types import ReplyKeyboardRemove
 from api.auth import registrate, authentication
 from keyboards import auth_kb
 from states import LoginForm, RegistrateForm
+from bot import get_bot
 
-
+bot = get_bot()
 auth_router = Router()
 
 
@@ -39,7 +40,7 @@ async def process_password(message: types.Message, state: FSMContext) -> None:
 @auth_router.message(RegistrateForm.re_password)
 async def process_password(message: types.Message, state: FSMContext) -> None:
     await state.update_data(re_password=message.text)
-
+    await bot.send_chat_action(message.chat.id, 'typing')
     data = await state.get_data()
 
     tg_id = message.from_user.id
@@ -111,6 +112,7 @@ async def process_email(message: types.Message, state: FSMContext) -> None:
 @auth_router.message(LoginForm.password)
 async def process_password(message: types.Message, state: FSMContext) -> None:
     await state.update_data(password=message.text)
+    await bot.send_chat_action(message.chat.id, 'typing')
 
     data = await state.get_data()
 
